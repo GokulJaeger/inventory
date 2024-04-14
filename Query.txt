@@ -1,0 +1,56 @@
+create database inventory;
+
+use inventory;
+
+CREATE TABLE users (
+id INT AUTO_INCREMENT PRIMARY KEY,
+userId VARCHAR(50) UNIQUE NOT NULL,
+fullName VARCHAR(100) NOT NULL,
+email VARCHAR(100) UNIQUE NOT NULL,
+password VARCHAR(255) NOT NULL,
+jwtToken VARCHAR(255),
+platform VARCHAR(100),
+deviceId VARCHAR(100),
+isActive BOOLEAN NOT NULL,
+createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE roles (
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(50) UNIQUE NOT NULL,
+description VARCHAR(100) NOT NULL,
+createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+Signup:
+
+{
+    "userId":"A2928",
+    "fullName":"administrator",
+    "email":"administrator@gmail.com",
+    "password":"admin@123"
+}
+
+
+{
+    "userId":"A2947",
+    "fullName":"KrishnaPrabha",
+    "email":"krishnaprabha@gmail.com",
+    "password":"krishna@123"
+}
+
+
+Login:
+
+{
+    "email":"administrator@gmail.com",
+    "password":"admin@123"
+}
+
+{
+    "email":"krishnaprabha@gmail.com",
+    "password":"krishna@123"
+}

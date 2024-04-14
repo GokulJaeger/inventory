@@ -1,0 +1,132 @@
+{
+	"info": {
+		"_postman_id": "a6b3bf7e-eb2b-497c-a252-b0d73a551cd9",
+		"name": "JwtAuthentication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32367208"
+	},
+	"item": [
+		{
+			"name": "User Sign Up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\":\"A345\",\r\n    \"fullName\":\"ghdtyfgvx\",\r\n    \"email\":\"itemkarikrishna@gmail.com\",\r\n    \"password\":\"ghdtyfgvx@123\",\r\n    \"role\":\"ADMIN\",\r\n    \"deviceId\":\"IMEI8943781923479\",\r\n    \"platform\":\"iOS\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"itemkarikrishna@gmail.com\",\r\n    \"password\":\"itemkarikrishna@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Current User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0YW1hbm5hQGdtYWlsLmNvbSIsImlhdCI6MTcxMzA5MDI1NywiZXhwIjoxNzIwODY2MjU3fQ.4c9luYeD8yIDEs-pjzjHLxnKgYWMaCHmvaWqXid7hOU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/users/me",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrb3dzYWx5YUBnbWFpbC5jb20iLCJpYXQiOjE3MTMwOTAzMjcsImV4cCI6MTcyMDg2NjMyN30.n5SeaL5vnSmhbYNJ0yz81mZURJvAiwp9YrS1Pezvsuc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/users/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"all"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

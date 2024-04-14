@@ -1,0 +1,36 @@
+"actual":
+{
+    "id": 3,
+    "userId": "G0001",
+    "fullName": "Guest",
+    "email": "guest@gmail.com",
+    "password": "$2a$10$yMe5he/2kGxcbDEsYhj62uWetEkjNOQZeE5dhNfQzacpSxYYmpWRa",
+    "jwtToken": null,
+    "platform": null,
+    "deviceId": null,
+    "createdAt": "2024-04-13T10:42:59.245+00:00",
+    "updatedAt": "2024-04-13T10:42:59.246+00:00",
+    "active": true,
+    "enabled": true,
+    "accountNonLocked": true,
+    "credentialsNonExpired": true,
+    "accountNonExpired": true,
+    "username": "guest@gmail.com",
+    "authorities": []
+}
+
+"required":
+{
+        "id": 1,
+        "userId": "A2928",
+        "fullName": "administrator",
+        "email": "administrator@gmail.com",
+        "password": "$2a$10$bE3J6IX.AL3yvleXAUVvDOCU1Xz0JHQmu274Tq4QcYPuj38ryeCSu",
+        "jwtToken": null,
+        "platform": null,
+        "deviceId": null,
+        "createdAt": "2024-04-05T12:20:53.000+00:00",
+        "updatedAt": "2024-04-05T12:20:53.000+00:00",
+        "active": true,
+        "username": "administrator@gmail.com"
+    }
