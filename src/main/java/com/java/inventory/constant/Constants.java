@@ -4,7 +4,7 @@ package com.java.inventory.constant;
 public class Constants {
 	
 	private Constants() {
-		
+		throw new IllegalStateException("Utility Constants Class");
 	}
 	/**
 	 * Status Code Constants
