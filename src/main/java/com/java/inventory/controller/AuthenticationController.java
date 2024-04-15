@@ -14,6 +14,7 @@ import com.java.inventory.service.AuthenticationService;
 import com.java.inventory.service.JwtService;
 import com.java.inventory.vo.LoginResponse;
 
+
 @RequestMapping("/api/auth")
 @RestController
 public class AuthenticationController {
