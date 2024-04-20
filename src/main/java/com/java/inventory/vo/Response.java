@@ -11,11 +11,31 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Scope(value = "prototype")
 public class Response {
 
-	private String message;
+	private String title;
 
 	private int statusCode;
 
+	private String message;
+
+	private String instance;
+
 	private Object data;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public int getStatusCode() {
+		return statusCode;
+	}
+
+	public void setStatusCode(int statusCode) {
+		this.statusCode = statusCode;
+	}
 
 	public String getMessage() {
 		return message;
@@ -25,12 +45,12 @@ public class Response {
 		this.message = message;
 	}
 
-	public int getStatusCode() {
-		return statusCode;
+	public String getInstance() {
+		return instance;
 	}
 
-	public void setStatusCode(int statusCode) {
-		this.statusCode = statusCode;
+	public void setInstance(String instance) {
+		this.instance = instance;
 	}
 
 	public Object getData() {

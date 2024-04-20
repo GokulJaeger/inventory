@@ -70,7 +70,5 @@ public class RegisterUserDto {
 	public void setPlatform(String platform) {
 		this.platform = platform;
 	}
-	
-	
 
 }

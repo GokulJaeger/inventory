@@ -2,31 +2,33 @@ package com.java.inventory.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.java.inventory.entity.Role;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SignUpUserDto {
-	
-private String userId;
-	
+
+	private String userId;
+
 	private String fullName;
-	
-    private String email;
-    
-    private String password;
-    
-    private String jwtToken;
-    
-    private String platform;
-    
-    private String deviceId;
-    
-    private boolean isActive;
-    
-    private Date createdAt;
-    
-    private Date updatedAt;
-    
-    private Role role;
+
+	private String email;
+
+	private String password;
+
+	private String jwtToken;
+
+	private String platform;
+
+	private String deviceId;
+
+	private boolean isActive;
+
+	private Date createdAt;
+
+	private Date updatedAt;
+
+	private Role role;
 
 	public String getEmail() {
 		return email;
