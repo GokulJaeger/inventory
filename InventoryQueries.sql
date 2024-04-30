@@ -36,9 +36,50 @@ loggedAt DATETIME,
 FOREIGN KEY (userId) REFERENCES users(id)
 );
 
+CREATE TABLE product(
+id INT AUTO_INCREMENT PRIMARY KEY,
+name varchar(255) UNIQUE NOT NULL,
+cost varchar(255) NOT NULL,
+barcode varchar(255) NOT NULL,
+quantity varchar(255) NOT NULL,
+brand varchar(255) NOT NULL,
+desc1 varchar(255) NOT NULL,
+desc2 varchar(255) NOT NULL,
+desc3 varchar(255) NOT NULL,
+desc4 varchar(255) NOT NULL,
+desc5 varchar(255) NOT NULL,
+desc6 varchar(255) NOT NULL,
+desc7 varchar(255) NOT NULL,
+desc8 varchar(255) NOT NULL,
+desc9 varchar(255) NOT NULL,
+desc10 varchar(255) NOT NULL,
+location varchar(255) NOT NULL,
+image varchar(255) NOT NULL,
+utilId int NOT NULL,
+createdAt DATETIME,
+updatedAt DATETIME,
+isActive BOOLEAN NOT NULL,
+FOREIGN KEY (utilId) REFERENCES utils(id)
+);
+
+CREATE TABLE utils (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    createdAt DATETIME,
+	updatedAt DATETIME,
+    isActive BOOLEAN NOT NULL
+);
+
 insert into roles(name,description) VALUES("ADMIN","Administrator Access Control"),("USER","Customer Access Control");
 
 insert into userLogin(email,userId,accessToken) values("administrator@gmail.com", 1,"empty_token"),("krishnaprabha@gmail.com", 2,"empty_token"),("guest@gmail.com", 3,"empty_token"),("guest2@gmail.com", 4,"empty_token"),("gokulr@gmail.com", 7,"empty_token");
+
+insert into product(name, cost, barcode, quantity, brand, desc1, desc2, desc3, desc4, desc5, desc6, desc7, desc8, desc9, desc10, location, image, utilId, createdAt, updatedAt, isActive) values("New i20", "1500000", "HG8765JHBJG5", "5 units", "HYUNDAI", "ABC123", "ABC874BHF", "AKLJEOIHJDS980743", "XYZ123", "ABCyjf3", "AB5785kf9","9867978hdnfg23", "PMEWBEB632568", "VBDS5U67", "FGND6W4NGFDN", "KOREA", "i20image.jpg",1, "2024-04-30 00:50:17", "2024-04-30 00:50:17", true);
+
+insert into utils(name, createdAt, updatedAt, isActive ) values("Car", "2024-04-29 21:54:17", "2024-04-29 21:54:17", true);
+insert into utils(name, createdAt, updatedAt, isActive ) values("Bike", "2024-04-29 21:54:45", "2024-04-29 21:54:45", true);
+insert into utils(name, createdAt, updatedAt, isActive ) values("Cycle", "2024-04-29 21:54:45", "2024-04-29 21:54:45", true);
+
 
 update users set userLogin=1 where id = 1;
 update users set userLogin=2 where id = 2;
@@ -53,3 +94,11 @@ update users set userLogin=9 where id = 11;
 
 alter table users modify column createdAt DATETIME;
 alter table users modify column updatedAt DATETIME;
+
+alter table product add column isActive BOOLEAN NOT NULL;
+alter table utils add column isActive BOOLEAN NOT NULL;
+
+
+
+
+
