@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "1a24aabc-0a8b-4bbd-aa96-366d05508bac",
+		"name": "Product",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32367208"
+	},
+	"item": [
+		{
+			"name": "Get All Products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnb2t1bGphQGdtYWlsLmNvbSIsImlhdCI6MTcxNDQ0NjIxMiwiZXhwIjoxNzIyMjIyMjEyfQ.ZI7s1vqa-fW-Pc4y4nEgq6iQCJDWmne5fc8IKG4c0mA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/products/getAllProducts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products",
+						"getAllProducts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

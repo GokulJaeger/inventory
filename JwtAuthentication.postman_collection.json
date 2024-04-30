@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"userId\":\"A345\",\r\n    \"fullName\":\"ghdtyfgvx\",\r\n    \"email\":\"itemkarikrishna@gmail.com\",\r\n    \"password\":\"ghdtyfgvx@123\",\r\n    \"role\":\"ADMIN\",\r\n    \"deviceId\":\"IMEI8943781923479\",\r\n    \"platform\":\"iOS\"\r\n}",
+					"raw": "{\r\n    \"userId\":\"A345\",\r\n    \"fullName\":\"gokulja\",\r\n    \"email\":\"gokulja@gmail.com\",\r\n    \"password\":\"gokulja@123\",\r\n    \"role\":\"ADMIN\",\r\n    \"deviceId\":\"IMEI8943781923479\",\r\n    \"platform\":\"iOS\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -43,7 +43,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\":\"itemkarikrishna@gmail.com\",\r\n    \"password\":\"itemkarikrishna@123\"\r\n}",
+					"raw": "{\r\n    \"email\":\"gokulja@gmail.com\",\r\n    \"password\":\"gokulja@123\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
