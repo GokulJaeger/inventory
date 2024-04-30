@@ -48,7 +48,7 @@ public class ProductService {
 	public ProductDto readProduct(ProductDto requestProductDto, Response response) {
 		ProductDto resposonseProductDto = new ProductDto();
 		Optional<Product> product = productRepository.findByName(requestProductDto.getName());
-
+		System.out.println("Name: " + requestProductDto.getName());
 		if(product.isPresent()) {
 			Product prod = product.get();
 			BeanUtils.copyProperties(prod, resposonseProductDto);

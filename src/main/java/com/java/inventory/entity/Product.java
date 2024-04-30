@@ -1,6 +1,5 @@
 package com.java.inventory.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -23,10 +22,7 @@ import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "product")
-public class Product implements Serializable {
-	
-	private static final long serialVersionUID = 1878421503L;
-	
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
