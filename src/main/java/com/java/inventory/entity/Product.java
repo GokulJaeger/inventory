@@ -4,8 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.TimeZone;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -78,6 +82,9 @@ public class Product implements Serializable {
     @Column(name = "image")
     private String image;
     
+    @Column(name = "isActive", nullable = false)
+	private boolean isActive;
+    
     @Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "createdAt", updatable = false)
 	private Date createdAt;
@@ -86,8 +93,9 @@ public class Product implements Serializable {
 	@Column(name = "updatedAt", nullable = false)
 	private Date updatedAt;
     
-    @ManyToOne
-    @JoinColumn(name = "UtilId")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "utilId", referencedColumnName = "id")
+    @JsonManagedReference
     private Utils utils;
 
     public Integer getId() {
@@ -256,6 +264,14 @@ public class Product implements Serializable {
 
 	public void setUtils(Utils utils) {
 		this.utils = utils;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	@PrePersist

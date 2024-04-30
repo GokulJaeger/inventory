@@ -46,6 +46,14 @@ public class Constants {
 	public static final String USER_ID = " User Id already Exists!...";
 	public static final String USER_ROLE = " Role is invalid!...";
 	
+	public static final String UTILS_CREATED = "Utils Created!...";
+	public static final String UTILS_UPDATED = "Utils Updated!...";
+	public static final String UTILS_DELETED = "Utils Deleted!...";
+	public static final String UTILS_EXIST = "Utils already Exist!...";
+	public static final String UTILS_NOTEXIST = "Utils does't Exist!...";
+	public static final String UTILS_ERROR = "Utils ERROR!...";
+	public static final String UTILS_NAME_NULL = "Utils name cannot be null";
+	
 	public static final String API_AUTH = "/api/auth";
 	public static final String API_SIGNUP = "/signup";
 	public static final String API_LOGIN = "/login";
@@ -54,6 +62,19 @@ public class Constants {
 	public static final String API_ME = "/me";
 	public static final String API_ALL = "/all";
 	
-
+	public static final String API_UTILS = "/api/utils";
+	public static final String API_UTILS_GET_ALL = "/getAllUtils";
+	public static final String API_UTILS_GET = "/getUtils";
+	public static final String API_UTILS_POST = "/postUtils";
+	public static final String API_UTILS_PUT = "/putUtils";
+	public static final String API_UTILS_DELETE = "/deleteUtils";
+	
+	public static final String API_PRODUCT = "/api/products";
+	public static final String API_PRODUCT_GET_ALL = "/getAllProducts";
+	public static final String API_PRODUCT_GET = "/getProduct";
+	public static final String API_PRODUCT_POST = "/postProducts";
+	public static final String API_PRODUCT_PUT = "/putProduct";
+	public static final String API_PRODUCT_DELETE = "/deleteProduct";
+	
 
 }

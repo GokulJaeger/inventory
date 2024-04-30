@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,7 +42,11 @@ public class Utils implements Serializable {
 		private Date updatedAt;
 	        
 	    @OneToMany(mappedBy = "utils", cascade = CascadeType.ALL)
+	    @JsonBackReference
 	    private List<Product> products;
+	    
+	    @Column(name = "isActive", nullable = false)
+		private boolean isActive;
 
 	    public Integer getId() {
 			return id;
@@ -80,6 +86,14 @@ public class Utils implements Serializable {
 
 		public void setProducts(List<Product> products) {
 			this.products = products;
+		}
+
+		public boolean isActive() {
+			return isActive;
+		}
+
+		public void setActive(boolean isActive) {
+			this.isActive = isActive;
 		}
 
 		@PrePersist
