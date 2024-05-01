@@ -54,7 +54,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\":\"car\"\r\n}",
+					"raw": "{\r\n    \"name\":\"van\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -94,7 +94,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\":\"Bus\"\r\n}",
+					"raw": "{\r\n    \"name\":\"Truck\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -134,7 +134,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 4,\r\n    \"name\": \"Train\"\r\n}",
+					"raw": "{\r\n    \"id\": 7,\r\n    \"name\": \"Tempo\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -174,7 +174,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\":\"Train\"\r\n}",
+					"raw": "{\r\n    \"name\":\"Jumbo\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
