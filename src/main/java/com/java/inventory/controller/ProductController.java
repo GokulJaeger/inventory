@@ -17,6 +17,8 @@ import com.java.inventory.dto.ProductDto;
 import com.java.inventory.service.ProductService;
 import com.java.inventory.vo.Response;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RequestMapping(value = Constants.API_PRODUCT, consumes = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class ProductController {

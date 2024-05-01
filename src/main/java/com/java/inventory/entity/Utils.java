@@ -1,14 +1,16 @@
 package com.java.inventory.entity;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.TimeZone;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,9 +40,9 @@ public class Utils {
 		@Column(name = "updatedAt", nullable = false)
 		private Date updatedAt;
 	        
-	    @OneToMany(mappedBy = "utils", cascade = CascadeType.ALL)
-	    @JsonBackReference
-	    private List<Product> products;
+	    @OneToMany(mappedBy = "utils", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	    @JsonManagedReference
+	    private Set<Product> products = new HashSet<>();
 	    
 	    @Column(name = "isActive", nullable = false)
 		private boolean isActive;
@@ -77,11 +79,11 @@ public class Utils {
 			this.updatedAt = updatedAt;
 		}
 
-		public List<Product> getProducts() {
+		public Set<Product> getProducts() {
 			return products;
 		}
 
-		public void setProducts(List<Product> products) {
+		public void setProducts(Set<Product> products) {
 			this.products = products;
 		}
 

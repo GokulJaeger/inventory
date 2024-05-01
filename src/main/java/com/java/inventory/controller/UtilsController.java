@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,7 +41,7 @@ public class UtilsController {
 	
 	@PostMapping(Constants.API_UTILS_GET)
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<Response> getUtils(UtilsDto requestUtilsDto) {
+	public ResponseEntity<Response> getUtils(@RequestBody UtilsDto requestUtilsDto) {
 		logger.info("UtilsController getUtils STARTED");
 		Response response = new Response();
 		response.setData(utilsService.readUtils(requestUtilsDto, response));
@@ -51,7 +52,7 @@ public class UtilsController {
 	
 	@PostMapping(Constants.API_UTILS_POST)
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<Response> postUtils(UtilsDto requestUtilsDto) {
+	public ResponseEntity<Response> postUtils(@RequestBody UtilsDto requestUtilsDto) {
 		logger.info("UtilsController postUtils STARTED");
 		Response response = new Response();
 		response.setData(utilsService.createUtils(requestUtilsDto, response));
@@ -63,7 +64,7 @@ public class UtilsController {
 	
 	@PutMapping(Constants.API_UTILS_PUT)
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<Response> putUtils(UtilsDto requestUtilsDto) {
+	public ResponseEntity<Response> putUtils(@RequestBody UtilsDto requestUtilsDto) {
 		logger.info("UtilsController putUtils STARTED");
 		Response response = new Response();
 		response.setData(utilsService.updateUtils(requestUtilsDto, response));
@@ -74,7 +75,7 @@ public class UtilsController {
 	
 	@PostMapping(Constants.API_UTILS_DELETE)
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<Response> deleteUtils(UtilsDto requestUtilsDto) {
+	public ResponseEntity<Response> deleteUtils(@RequestBody UtilsDto requestUtilsDto) {
 		logger.info("UtilsController deleteUtils STARTED");
 		Response response = new Response();
 		utilsService.deleteUtils(requestUtilsDto, response);

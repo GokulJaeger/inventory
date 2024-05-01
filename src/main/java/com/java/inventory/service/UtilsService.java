@@ -55,6 +55,7 @@ public class UtilsService {
 			response.setMessage("Utils details successfully fetched");
 			response.setStatusCode(Constants.OK);
 		} else {
+			resposonseUtilsDto = null;
 			response.setTitle(Constants.TITLE_NO_CONTENT);
 			response.setMessage("No data found");
 			response.setStatusCode(Constants.NO_CONTENT);
@@ -120,35 +121,17 @@ public class UtilsService {
 
 	public void deleteUtils(UtilsDto requestUtilsDto, Response response) {
 		if (requestUtilsDto.getName() != null) {
-			Optional<Utils> existingUtils = utilsRepository.findByName(requestUtilsDto.getName());
-			if (existingUtils.isPresent()) {
-				Utils newUtils = existingUtils.get();
-				newUtils.setActive(false);
-				utilsRepository.save(newUtils);
-				Optional<Utils> existingDeleteUtils = utilsRepository.findByName(requestUtilsDto.getName());
-				if (existingDeleteUtils.isPresent()) {
-					Utils utilsNew = existingDeleteUtils.get();
-					if (!utilsNew.isActive()) {
-						response.setMessage(Constants.UTILS_DELETED);
-						response.setStatusCode(Constants.OK);
-						response.setTitle(Constants.TITLE_OK);
-					} else {
-						response.setMessage("Unable to delete Utils!... Contact Administrator");
-						response.setStatusCode(Constants.OK);
-						response.setTitle(Constants.TITLE_OK);
-					}
-				} else {
-					response.setMessage(Constants.UTILS_ERROR);
-					response.setStatusCode(Constants.BAD_REQUEST);
-					response.setTitle(Constants.TITLE_BAD_REQUEST);
-				}
-
+			Optional<Utils> existingDeleteUtils = utilsRepository.findByName(requestUtilsDto.getName());
+			if (existingDeleteUtils.isPresent()) {
+				utilsRepository.deleteById(existingDeleteUtils.get().getId());
+				response.setMessage(Constants.UTILS_DELETED);
+				response.setStatusCode(Constants.OK);
+				response.setTitle(Constants.TITLE_OK);
 			} else {
 				response.setMessage(Constants.UTILS_NOTEXIST);
-				response.setStatusCode(Constants.BAD_REQUEST);
-				response.setTitle(Constants.TITLE_BAD_REQUEST);
+				response.setStatusCode(Constants.OK);
+				response.setTitle(Constants.TITLE_OK);
 			}
-
 		} else {
 			response.setMessage(Constants.UTILS_NAME_NULL);
 			response.setStatusCode(Constants.BAD_REQUEST);

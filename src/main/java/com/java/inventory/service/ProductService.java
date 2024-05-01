@@ -56,6 +56,7 @@ public class ProductService {
 			response.setMessage("Utils details successfully fetched");
 			response.setStatusCode(Constants.OK);
 		}else {
+			resposonseProductDto = null;
 			response.setTitle(Constants.TITLE_NO_CONTENT);
 			response.setMessage("No data found");
 			response.setStatusCode(Constants.NO_CONTENT);

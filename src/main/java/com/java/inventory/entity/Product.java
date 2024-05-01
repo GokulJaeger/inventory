@@ -3,9 +3,7 @@ package com.java.inventory.entity;
 import java.util.Date;
 import java.util.TimeZone;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -89,9 +87,9 @@ public class Product {
 	@Column(name = "updatedAt", nullable = false)
 	private Date updatedAt;
     
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "utilId", referencedColumnName = "id")
-    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "utilId")
+    @JsonBackReference
     private Utils utils;
 
     public Integer getId() {
