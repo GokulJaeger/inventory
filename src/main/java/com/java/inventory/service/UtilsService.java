@@ -34,11 +34,11 @@ public class UtilsService {
 		}
 		if (resposonseUtilsDtoList.isEmpty()) {
 			response.setTitle(Constants.TITLE_NO_CONTENT);
-			response.setMessage("No data found");
+			response.setMessage(Constants.NO_DATA_FOUND);
 			response.setStatusCode(Constants.NO_CONTENT);
 		} else {
 			response.setTitle(Constants.TITLE_OK);
-			response.setMessage("All Utils details successfully fetched");
+			response.setMessage(Constants.UTILS_FETCH_ALL);
 			response.setStatusCode(Constants.OK);
 		}
 		return resposonseUtilsDtoList;
@@ -52,12 +52,12 @@ public class UtilsService {
 			Utils newUtils = utils.get();
 			BeanUtils.copyProperties(newUtils, resposonseUtilsDto);
 			response.setTitle(Constants.TITLE_OK);
-			response.setMessage("Utils details successfully fetched");
+			response.setMessage(Constants.UTILS_FETCH);
 			response.setStatusCode(Constants.OK);
 		} else {
 			resposonseUtilsDto = null;
 			response.setTitle(Constants.TITLE_NO_CONTENT);
-			response.setMessage("No data found");
+			response.setMessage(Constants.NO_DATA_FOUND);
 			response.setStatusCode(Constants.NO_CONTENT);
 		}
 		return resposonseUtilsDto;

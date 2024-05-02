@@ -78,7 +78,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\":\"New i20\"\r\n}",
+					"raw": "{\r\n    \"name\":\"Venue\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -96,6 +96,126 @@
 						"api",
 						"products",
 						"getProduct"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnb2t1bGphQGdtYWlsLmNvbSIsImlhdCI6MTcxNDQ0NjIxMiwiZXhwIjoxNzIyMjIyMjEyfQ.ZI7s1vqa-fW-Pc4y4nEgq6iQCJDWmne5fc8IKG4c0mA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"Venue\",\r\n        \"cost\": \"1600000\",\r\n        \"barcode\": \"IJOS0KJH8RGNF945B\",\r\n        \"quantity\": \"20 units\",\r\n        \"brand\": \"HYUNDAI\",\r\n        \"description\": \"ABC980\",\r\n        \"location\": \"KOREA\",\r\n        \"image\": \"VENUEimage.jpg\",\r\n        \"utils\": {\r\n            \"id\": 1\r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/products/postProduct",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products",
+						"postProduct"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnb2t1bGphQGdtYWlsLmNvbSIsImlhdCI6MTcxNDQ0NjIxMiwiZXhwIjoxNzIyMjIyMjEyfQ.ZI7s1vqa-fW-Pc4y4nEgq6iQCJDWmne5fc8IKG4c0mA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Venue\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/products/deleteProduct",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products",
+						"deleteProduct"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnb2t1bGphQGdtYWlsLmNvbSIsImlhdCI6MTcxNDQ0NjIxMiwiZXhwIjoxNzIyMjIyMjEyfQ.ZI7s1vqa-fW-Pc4y4nEgq6iQCJDWmne5fc8IKG4c0mA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 3,\r\n    \"name\": \"Venue\",\r\n    \"cost\": \"1600000\",\r\n    \"barcode\": \"IJOS0KJH8RGNF945B\",\r\n    \"quantity\": \"20 units\",\r\n    \"brand\": \"HYUNDAI\",\r\n    \"description\": \"Compact mini SUV \",\r\n    \"location\": \"KOREA\",\r\n    \"image\": \"VENUEimage.jpg\",\r\n    \"utils\": {\r\n        \"id\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/products/putProduct",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products",
+						"putProduct"
 					]
 				}
 			},

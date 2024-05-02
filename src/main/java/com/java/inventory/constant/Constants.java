@@ -36,6 +36,13 @@ public class Constants {
 	public static final String TITLE_BAD_GATEWAY = "BAD_GATEWAY";
 	public static final String TITLE_SERVICE_UNAVAILABLE = "SERVICE_UNAVAILABLE";
 	
+	/**
+	 * Common Constants
+	 */
+	public static final String NO_DATA_FOUND = "No data found";
+	public static final String NULL_FIELDS = "Fields are null";
+	public static final String SERVER_ERROR = "Server error contact Administrator";
+	
 	public static final String USER_CREATED = "User Created!...";
 	public static final String USER_LOGGEDIN = "User Logged In!...";
 	public static final String USER_LOGINFAILED = "User not found!...";
@@ -49,10 +56,22 @@ public class Constants {
 	public static final String UTILS_CREATED = "Utils Created!...";
 	public static final String UTILS_UPDATED = "Utils Updated!...";
 	public static final String UTILS_DELETED = "Utils Deleted!...";
+	public static final String UTILS_FETCH= "Utils details successfully fetched";
+	public static final String UTILS_FETCH_ALL= "All Utils details successfully fetched";
 	public static final String UTILS_EXIST = "Utils already Exist!...";
 	public static final String UTILS_NOTEXIST = "Utils does't Exist!...";
 	public static final String UTILS_ERROR = "Utils ERROR!...";
 	public static final String UTILS_NAME_NULL = "Utils name cannot be null";
+	
+	public static final String PRODUCT_CREATED = "Product Created!...";
+	public static final String PRODUCT_UPDATED = "Product Updated!...";
+	public static final String PRODUCT_DELETED = "Product Deleted!...";
+	public static final String PRODUCT_FETCH= "Product details successfully fetched";
+	public static final String PRODUCT_FETCH_ALL= "All Product details successfully fetched";
+	public static final String PRODUCT_EXIST = "Product already Exist!...";
+	public static final String PRODUCT_NOTEXIST = "Product does't Exist!...";
+	public static final String PRODUCT_ERROR = "Product ERROR!...";
+	public static final String PRODUCT_NAME_NULL = "Product name cannot be null";
 	
 	public static final String API_AUTH = "/api/auth";
 	public static final String API_SIGNUP = "/signup";
@@ -72,7 +91,7 @@ public class Constants {
 	public static final String API_PRODUCT = "/api/products";
 	public static final String API_PRODUCT_GET_ALL = "/getAllProducts";
 	public static final String API_PRODUCT_GET = "/getProduct";
-	public static final String API_PRODUCT_POST = "/postProducts";
+	public static final String API_PRODUCT_POST = "/postProduct";
 	public static final String API_PRODUCT_PUT = "/putProduct";
 	public static final String API_PRODUCT_DELETE = "/deleteProduct";
 	
