@@ -54,7 +54,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\":\"van\"\r\n}",
+					"raw": "{\r\n    \"name\":\"bike\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -134,7 +134,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 7,\r\n    \"name\": \"Tempo\"\r\n}",
+					"raw": "{\r\n    \"id\": 8,\r\n    \"name\": \"Tempo\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
