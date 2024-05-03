@@ -1,11 +1,12 @@
 package com.java.inventory.dto;
 
 import java.util.Date;
-import java.util.List;
 
-import com.java.inventory.entity.Product;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.java.inventory.entity.Utils;
 
+@JsonInclude(Include.NON_NULL)
 public class ProductDto {
 	private Integer id;
 	private String name;
@@ -16,10 +17,11 @@ public class ProductDto {
 	private String description;
 	private String location;
 	private String image;
-	private Utils utils;
+	private UtilsDto utilsDto;
 	private Date createdAt;
 	private Date updatedAt;
 	private boolean isActive;
+	private int utilsId;
 	
 	public Integer getId() {
 		return id;
@@ -75,11 +77,11 @@ public class ProductDto {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public Utils getUtils() {
-		return utils;
+	public UtilsDto getUtilsDto() {
+		return utilsDto;
 	}
-	public void setUtils(Utils utils) {
-		this.utils = utils;
+	public void setUtils(UtilsDto utilsDto) {
+		this.utilsDto = utilsDto;
 	}
 	public Date getCreatedAt() {
 		return createdAt;
@@ -98,6 +100,12 @@ public class ProductDto {
 	}
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+	public int getUtilsId() {
+		return utilsId;
+	}
+	public void setUtilsId(int utilsId) {
+		this.utilsId = utilsId;
 	}
 	
 }

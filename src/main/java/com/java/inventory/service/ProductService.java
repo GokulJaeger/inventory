@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-
 import com.java.inventory.constant.Constants;
-import com.java.inventory.controller.ProductController;
 import com.java.inventory.dto.ProductDto;
 import com.java.inventory.entity.Product;
 import com.java.inventory.entity.Utils;
@@ -33,6 +30,7 @@ public class ProductService {
 
 	public List<ProductDto> readAllProducts(Response response) {
 		logger.info("ProductService readAllProducts STARTED");
+		logger.info("ProductService readAllProducts Product all details fetch");
 		List<ProductDto> resposonseProductDtoList = new ArrayList<>();
 		List<Product> productList = productRepository.findAll();
 
@@ -40,6 +38,7 @@ public class ProductService {
 			for (Product prod : productList) {
 				ProductDto prodDto = new ProductDto();
 				BeanUtils.copyProperties(prod, prodDto);
+				prodDto.setUtilsId(prod.getUtils().getId());
 				resposonseProductDtoList.add(prodDto);
 			}
 			response.setTitle(Constants.TITLE_OK);
@@ -57,10 +56,11 @@ public class ProductService {
 	public ProductDto readProduct(ProductDto requestProductDto, Response response) {
 		logger.info("ProductService readProduct STARTED");
 		ProductDto resposonseProductDto = new ProductDto();
+		logger.info("ProductService readProduct Product details fetch for: {}", requestProductDto.getName());
 		Optional<Product> product = productRepository.findByName(requestProductDto.getName());
-		System.out.println("Name: " + requestProductDto.getName());
 		if (product.isPresent()) {
 			Product prod = product.get();
+			resposonseProductDto.setUtilsId(prod.getUtils().getId());
 			BeanUtils.copyProperties(prod, resposonseProductDto);
 			response.setTitle(Constants.TITLE_OK);
 			response.setMessage(Constants.PRODUCT_FETCH);
@@ -77,25 +77,23 @@ public class ProductService {
 
 	public Optional<?> createProduct(ProductDto requestProductDto, Response response) {
 		logger.info("ProductService createProduct STARTED");
-		ProductDto resposonseProductDto = null;
-		List<String> nullFields = new ArrayList<>(); // List to track null fields
-		System.out.println("Name: " + requestProductDto.getName());
-		System.out.println("Utils: " + requestProductDto.getUtils().getId());
+		ProductDto resposonseProductDto = new ProductDto();
+		logger.info("ProductService createProduct Product create request for: {}", requestProductDto.getName());
 		if (requestProductDto.getName() != null) {
 			Optional<Product> existingProduct = productRepository.findByName(requestProductDto.getName());
+			List<String> nullFields = new ArrayList<>(); // List to track null fields
 			if (!existingProduct.isPresent()) {
-
 				Product createProduct = new Product();
 				mapDtoToEntity(createProduct, requestProductDto, nullFields);
 				createProduct.setCreatedAt(new Date());
 				createProduct.setUpdatedAt(new Date());
 				createProduct.setActive(true);
-				Optional<Utils> existingUtils = utilsRepository.findById(requestProductDto.getUtils().getId());
+				Optional<Utils> existingUtils = utilsRepository.findById(requestProductDto.getUtilsId());
 				if (existingUtils.isPresent()) {
 					Utils utils = existingUtils.get();
 					createProduct.setUtils(utils);
 					createProduct = productRepository.save(createProduct);
-					resposonseProductDto = new ProductDto();
+					resposonseProductDto.setUtilsId(createProduct.getUtils().getId());
 					BeanUtils.copyProperties(createProduct, resposonseProductDto);
 				} else {
 					nullFields.add("Utils Id does not exist");
@@ -103,6 +101,9 @@ public class ProductService {
 				response.setMessage(Constants.UTILS_CREATED);
 				response.setStatusCode(Constants.CREATED);
 				response.setTitle(Constants.TITLE_CREATED);
+				if (!nullFields.isEmpty()) {
+					return Optional.of(nullFields);
+				}
 			} else {
 				response.setMessage(Constants.PRODUCT_EXIST);
 				response.setStatusCode(Constants.BAD_REQUEST);
@@ -114,40 +115,35 @@ public class ProductService {
 			response.setTitle(Constants.TITLE_BAD_REQUEST);
 		}
 		logger.info("ProductService createProduct ENDED");
-		if (!nullFields.isEmpty()) {
-			return Optional.of(nullFields);
-		} else if (resposonseProductDto != null) {
-			return Optional.of(resposonseProductDto);
-		} else {
-			return Optional.of(resposonseProductDto);
-		}
+		return Optional.of(resposonseProductDto);
 	}
 
 	public Optional<?> updateProduct(ProductDto requestProductDto, Response response) {
 		logger.info("ProductService updateProduct STARTED");
-		ProductDto resposonseProductDto = null;
-		List<String> nullFields = new ArrayList<>(); // List to track null fields
-		System.out.println("Name: " + requestProductDto.getName());
-		System.out.println("Utils: " + requestProductDto.getUtils().getId());
+		ProductDto resposonseProductDto = new ProductDto();
+		logger.info("ProductService updateProduct Product update request for: {}", requestProductDto.getId());
 		if (requestProductDto.getName() != null) {
 			Optional<Product> existingProduct = productRepository.findById(requestProductDto.getId());
+			List<String> nullFields = new ArrayList<>(); // List to track null fields
 			if (existingProduct.isPresent()) {
 
 				Product updateProduct = existingProduct.get();
 				mapDtoToEntity(updateProduct, requestProductDto, nullFields);
 				updateProduct.setUpdatedAt(new Date());
 				updateProduct.setActive(true);
-				Optional<Utils> existingUtils = utilsRepository.findById(requestProductDto.getUtils().getId());
+				Optional<Utils> existingUtils = utilsRepository.findById(requestProductDto.getUtilsId());
 				if (existingUtils.isPresent()) {
 					Utils utils = existingUtils.get();
 					updateProduct.setUtils(utils);
 					updateProduct = productRepository.save(updateProduct);
-					resposonseProductDto = new ProductDto();
+					resposonseProductDto.setUtilsId(updateProduct.getUtils().getId());
 					BeanUtils.copyProperties(updateProduct, resposonseProductDto);
 				} else {
 					nullFields.add("Utils Id does not exist");
 				}
-
+				if (!nullFields.isEmpty()) {
+					return Optional.of(nullFields);
+				}
 			} else {
 				response.setMessage(Constants.PRODUCT_NOTEXIST);
 				response.setStatusCode(Constants.BAD_REQUEST);
@@ -159,18 +155,13 @@ public class ProductService {
 			response.setTitle(Constants.TITLE_BAD_REQUEST);
 		}
 		logger.info("ProductService updateProduct ENDED");
-		if (!nullFields.isEmpty()) {
-			return Optional.of(nullFields);
-		} else if (resposonseProductDto != null) {
-			return Optional.of(resposonseProductDto);
-		} else {
-			return Optional.of(resposonseProductDto);
-		}
+		return Optional.of(resposonseProductDto);
+
 	}
 
 	public void deleteProduct(ProductDto requestProductDto, Response response) {
 		logger.info("ProductService deleteProduct STARTED");
-		System.out.println("Name: " + requestProductDto.getName());
+		logger.info("ProductService deleteProduct Product delete request for: {}", requestProductDto.getName());
 		if (requestProductDto.getName() != null) {
 			Optional<Product> existingDeleteProduct = productRepository.findByName(requestProductDto.getName());
 			if (existingDeleteProduct.isPresent()) {

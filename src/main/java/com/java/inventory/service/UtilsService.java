@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import com.java.inventory.vo.Response;
 
 @Service
 public class UtilsService {
+	private static final Logger logger = LoggerFactory.getLogger(UtilsService.class);
 
 	private final UtilsRepository utilsRepository;
 
@@ -24,6 +27,8 @@ public class UtilsService {
 	}
 
 	public List<UtilsDto> readAllUtils(Response response) {
+		logger.info("UtilsService readAllUtils STARTED");
+		logger.info("UtilsService readAllUtils Utils all details fetch");
 		List<UtilsDto> resposonseUtilsDtoList = new ArrayList<>();
 		List<Utils> utilsList = utilsRepository.findAll();
 
@@ -41,13 +46,15 @@ public class UtilsService {
 			response.setMessage(Constants.UTILS_FETCH_ALL);
 			response.setStatusCode(Constants.OK);
 		}
+		logger.info("UtilsService readAllUtils ENDED");
 		return resposonseUtilsDtoList;
 	}
 
 	public UtilsDto readUtils(UtilsDto requestUtilsDto, Response response) {
+		logger.info("UtilsService readUtils STARTED");
 		UtilsDto resposonseUtilsDto = new UtilsDto();
+		logger.info("UtilsService readUtils Utils details fetch for: {}", requestUtilsDto.getName());
 		Optional<Utils> utils = utilsRepository.findByName(requestUtilsDto.getName());
-
 		if (utils.isPresent()) {
 			Utils newUtils = utils.get();
 			BeanUtils.copyProperties(newUtils, resposonseUtilsDto);
@@ -60,11 +67,14 @@ public class UtilsService {
 			response.setMessage(Constants.NO_DATA_FOUND);
 			response.setStatusCode(Constants.NO_CONTENT);
 		}
+		logger.info("UtilsService readUtils ENDED");
 		return resposonseUtilsDto;
 	}
 
 	public UtilsDto createUtils(UtilsDto requestUtilsDto, Response response) {
+		logger.info("UtilsService createUtils STARTED");
 		UtilsDto responseUtilsDto = new UtilsDto();
+		logger.info("UtilsService createUtils Utils create request for: {}", requestUtilsDto.getName());
 		if (requestUtilsDto.getName() != null) {
 			Optional<Utils> existingUtils = utilsRepository.findByName(requestUtilsDto.getName());
 			if (!existingUtils.isPresent()) {
@@ -88,11 +98,14 @@ public class UtilsService {
 			response.setStatusCode(Constants.BAD_REQUEST);
 			response.setTitle(Constants.TITLE_BAD_REQUEST);
 		}
+		logger.info("UtilsService createUtils ENDED");
 		return responseUtilsDto;
 	}
 
 	public UtilsDto updateUtils(UtilsDto requestUtilsDto, Response response) {
+		logger.info("UtilsService updateUtils STARTED");
 		UtilsDto responseUtilsDto = new UtilsDto();
+		logger.info("UtilsService updateUtils Utils update request for: {}", requestUtilsDto.getName());
 		if (requestUtilsDto.getName() != null) {
 			Optional<Utils> existingUtils = utilsRepository.findById(requestUtilsDto.getId());
 			if (existingUtils.isPresent()) {
@@ -115,11 +128,13 @@ public class UtilsService {
 			response.setStatusCode(Constants.BAD_REQUEST);
 			response.setTitle(Constants.TITLE_BAD_REQUEST);
 		}
-
+		logger.info("UtilsService updateUtils ENDED");
 		return responseUtilsDto;
 	}
 
 	public void deleteUtils(UtilsDto requestUtilsDto, Response response) {
+		logger.info("UtilsService deleteUtils STARTED");
+		logger.info("UtilsService deleteUtils Utils delete request for: {}", requestUtilsDto.getName());
 		if (requestUtilsDto.getName() != null) {
 			Optional<Utils> existingDeleteUtils = utilsRepository.findByName(requestUtilsDto.getName());
 			if (existingDeleteUtils.isPresent()) {
@@ -137,6 +152,7 @@ public class UtilsService {
 			response.setStatusCode(Constants.BAD_REQUEST);
 			response.setTitle(Constants.TITLE_BAD_REQUEST);
 		}
+		logger.info("UtilsService deleteUtils ENDED");
 	}
 
 }
