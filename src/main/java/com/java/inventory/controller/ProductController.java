@@ -33,13 +33,13 @@ public class ProductController {
 		this.productService = productService;
 	}
 
-	@GetMapping(value = Constants.API_PRODUCT_GET_ALL)
 	@PreAuthorize("isAuthenticated()")
+	@GetMapping(value = Constants.API_PRODUCT_GET_ALL)
 	public ResponseEntity<Response> getAllProducts() {
 		logger.info("ProductController getAllProducts STARTED");
 		Response response = new Response();
 		// read All Products
-		response.setData(productService.readAllProducts(response));
+		response.setData(productService.readAllActiveProducts(response));
 		response.setInstance(Constants.API_PRODUCT.concat(Constants.API_PRODUCT_GET_ALL));
 		logger.info("ProductController getAllProducts ENDED");
 		return new ResponseEntity<>(response, HttpStatus.OK);
@@ -51,7 +51,7 @@ public class ProductController {
 		logger.info("ProductController getProduct STARTED");
 		Response response = new Response();
 		// read Product
-		response.setData(productService.readProduct(requestProductDto, response));
+		response.setData(productService.readActiveProduct(requestProductDto, response));
 		response.setInstance(Constants.API_PRODUCT.concat(Constants.API_PRODUCT_GET));
 		logger.info("ProductController getProduct ENDED");
 		return new ResponseEntity<>(response, HttpStatus.OK);

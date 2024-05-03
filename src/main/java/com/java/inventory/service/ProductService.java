@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import com.java.inventory.constant.Constants;
 import com.java.inventory.dto.ProductDto;
@@ -15,6 +16,8 @@ import com.java.inventory.entity.Utils;
 import com.java.inventory.repository.ProductRepository;
 import com.java.inventory.repository.UtilsRepository;
 import com.java.inventory.vo.Response;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class ProductService {
@@ -28,12 +31,13 @@ public class ProductService {
 		this.utilsRepository = utilsRepository;
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@Transactional
 	public List<ProductDto> readAllProducts(Response response) {
 		logger.info("ProductService readAllProducts STARTED");
 		logger.info("ProductService readAllProducts Product all details fetch");
 		List<ProductDto> resposonseProductDtoList = new ArrayList<>();
 		List<Product> productList = productRepository.findAll();
-
 		if (!productList.isEmpty()) {
 			for (Product prod : productList) {
 				ProductDto prodDto = new ProductDto();
@@ -53,11 +57,14 @@ public class ProductService {
 		return resposonseProductDtoList;
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@Transactional
 	public ProductDto readProduct(ProductDto requestProductDto, Response response) {
 		logger.info("ProductService readProduct STARTED");
 		ProductDto resposonseProductDto = new ProductDto();
-		logger.info("ProductService readProduct Product details fetch for: {}", requestProductDto.getName());
-		Optional<Product> product = productRepository.findByName(requestProductDto.getName());
+		logger.info("ProductService readProduct Product details fetch for: {}", requestProductDto.getId());
+		Optional<Product> product = productRepository.findById(requestProductDto.getId());
+		logger.info("ProductService readProduct ---> {}", product);
 		if (product.isPresent()) {
 			Product prod = product.get();
 			resposonseProductDto.setUtilsId(prod.getUtils().getId());
@@ -75,6 +82,83 @@ public class ProductService {
 		return resposonseProductDto;
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@Transactional
+	public void deleteInActiveProduct(ProductDto requestProductDto, Response response) {
+		logger.info("ProductService deleteProduct STARTED");
+		logger.info("ProductService deleteProduct Product delete request for: {}", requestProductDto.getName());
+		if (requestProductDto.getName() != null) {
+			Optional<Product> existingDeleteProduct = productRepository.findByName(requestProductDto.getName());
+			if (existingDeleteProduct.isPresent()) {
+				Product deleteProd = existingDeleteProduct.get();
+				productRepository.deleteById(deleteProd.getId());
+				response.setMessage(Constants.PRODUCT_DELETED);
+				response.setStatusCode(Constants.OK);
+				response.setTitle(Constants.TITLE_OK);
+			} else {
+				response.setMessage(Constants.PRODUCT_NOTEXIST);
+				response.setStatusCode(Constants.OK);
+				response.setTitle(Constants.TITLE_OK);
+			}
+		} else {
+			response.setMessage(Constants.PRODUCT_NAME_NULL);
+			response.setStatusCode(Constants.BAD_REQUEST);
+			response.setTitle(Constants.TITLE_BAD_REQUEST);
+		}
+		logger.info("ProductService deleteProduct ENDED");
+	}
+	
+	@Transactional
+	public List<ProductDto> readAllActiveProducts(Response response) {
+		logger.info("ProductService readAllActiveProducts STARTED");
+		logger.info("ProductService readAllActiveProducts Product all details fetch");
+		List<ProductDto> resposonseProductDtoList = new ArrayList<>();
+		List<Product> productActiveList = productRepository.findByIsActive(true);
+
+		if (!productActiveList.isEmpty()) {
+			for (Product prod : productActiveList) {
+				ProductDto prodDto = new ProductDto();
+				BeanUtils.copyProperties(prod, prodDto);
+				prodDto.setUtilsId(prod.getUtils().getId());
+				resposonseProductDtoList.add(prodDto);
+			}
+			response.setTitle(Constants.TITLE_OK);
+			response.setStatusCode(Constants.OK);
+			response.setMessage(Constants.PRODUCT_FETCH_ALL);
+		} else {
+			response.setTitle(Constants.TITLE_NO_CONTENT);
+			response.setMessage(Constants.NO_DATA_FOUND);
+			response.setStatusCode(Constants.NO_CONTENT);
+		}
+		logger.info("ProductService readAllActiveProducts ENDED");
+		return resposonseProductDtoList;
+	}
+
+	@Transactional
+	public ProductDto readActiveProduct(ProductDto requestProductDto, Response response) {
+		logger.info("ProductService readAllActiveProducts STARTED");
+		ProductDto resposonseProductDto = new ProductDto();
+		logger.info("ProductService readAllActiveProducts Product details fetch for: {}", requestProductDto.getName());
+		Product activeProduct = productRepository.findByNameAndIsActive(requestProductDto.getName(), true);
+		logger.info("Name By Active:");
+		logger.info("---> {}", activeProduct);
+		if (activeProduct != null) {
+			resposonseProductDto.setUtilsId(activeProduct.getUtils().getId());
+			BeanUtils.copyProperties(activeProduct, resposonseProductDto);
+			response.setTitle(Constants.TITLE_OK);
+			response.setMessage(Constants.PRODUCT_FETCH);
+			response.setStatusCode(Constants.OK);
+		} else {
+			resposonseProductDto = null;
+			response.setTitle(Constants.TITLE_NO_CONTENT);
+			response.setMessage(Constants.NO_DATA_FOUND);
+			response.setStatusCode(Constants.NO_CONTENT);
+		}
+		logger.info("ProductService readAllActiveProducts ENDED");
+		return resposonseProductDto;
+	}
+
+	@Transactional
 	public Optional<?> createProduct(ProductDto requestProductDto, Response response) {
 		logger.info("ProductService createProduct STARTED");
 		ProductDto resposonseProductDto = new ProductDto();
@@ -82,7 +166,7 @@ public class ProductService {
 		if (requestProductDto.getName() != null) {
 			Optional<Product> existingProduct = productRepository.findByName(requestProductDto.getName());
 			List<String> nullFields = new ArrayList<>(); // List to track null fields
-			if (!existingProduct.isPresent()) {
+			if (existingProduct.isEmpty()) {
 				Product createProduct = new Product();
 				mapDtoToEntity(createProduct, requestProductDto, nullFields);
 				createProduct.setCreatedAt(new Date());
@@ -105,9 +189,9 @@ public class ProductService {
 					return Optional.of(nullFields);
 				}
 			} else {
-				response.setMessage(Constants.PRODUCT_EXIST);
-				response.setStatusCode(Constants.BAD_REQUEST);
-				response.setTitle(Constants.TITLE_BAD_REQUEST);
+					response.setMessage(existingProduct.get().isActive()? Constants.PRODUCT_EXIST:Constants.PRODUCT_EXIST_INACTIVE);
+					response.setStatusCode(Constants.BAD_REQUEST);
+					response.setTitle(Constants.TITLE_BAD_REQUEST);
 			}
 		} else {
 			response.setMessage(Constants.PRODUCT_NAME_NULL);
@@ -118,16 +202,16 @@ public class ProductService {
 		return Optional.of(resposonseProductDto);
 	}
 
+	@Transactional
 	public Optional<?> updateProduct(ProductDto requestProductDto, Response response) {
 		logger.info("ProductService updateProduct STARTED");
 		ProductDto resposonseProductDto = new ProductDto();
 		logger.info("ProductService updateProduct Product update request for: {}", requestProductDto.getId());
 		if (requestProductDto.getName() != null) {
-			Optional<Product> existingProduct = productRepository.findById(requestProductDto.getId());
+			Product existingProduct = productRepository.findByIdAndIsActive(requestProductDto.getId(), true);
 			List<String> nullFields = new ArrayList<>(); // List to track null fields
-			if (existingProduct.isPresent()) {
-
-				Product updateProduct = existingProduct.get();
+			if (existingProduct != null) {
+				Product updateProduct = existingProduct;
 				mapDtoToEntity(updateProduct, requestProductDto, nullFields);
 				updateProduct.setUpdatedAt(new Date());
 				updateProduct.setActive(true);
@@ -159,13 +243,15 @@ public class ProductService {
 
 	}
 
+	@Transactional
 	public void deleteProduct(ProductDto requestProductDto, Response response) {
 		logger.info("ProductService deleteProduct STARTED");
 		logger.info("ProductService deleteProduct Product delete request for: {}", requestProductDto.getName());
 		if (requestProductDto.getName() != null) {
-			Optional<Product> existingDeleteProduct = productRepository.findByName(requestProductDto.getName());
-			if (existingDeleteProduct.isPresent()) {
-				productRepository.deleteById(existingDeleteProduct.get().getId());
+			Product existingDeleteProduct = productRepository.findByNameAndIsActive(requestProductDto.getName(), true);
+			if (existingDeleteProduct != null) {
+				existingDeleteProduct.setActive(false);
+				productRepository.save(existingDeleteProduct);
 				response.setMessage(Constants.PRODUCT_DELETED);
 				response.setStatusCode(Constants.OK);
 				response.setTitle(Constants.TITLE_OK);
@@ -181,7 +267,10 @@ public class ProductService {
 		}
 		logger.info("ProductService deleteProduct ENDED");
 	}
+	
+	
 
+	@Transactional
 	private void mapDtoToEntity(Product product, ProductDto productDTO, List<String> nullFields) {
 		logger.info("ProductService mapDtoToEntity STARTED");
 		// Map name
@@ -249,6 +338,7 @@ public class ProductService {
 	}
 
 	// Helper method to check if a string is not null and not empty
+	@Transactional
 	private boolean isNotNullOrEmpty(String value) {
 		logger.info("ProductService isNotNullOrEmpty Called...");
 		return value != null && !value.trim().isEmpty();

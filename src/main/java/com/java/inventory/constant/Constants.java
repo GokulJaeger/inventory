@@ -69,6 +69,7 @@ public class Constants {
 	public static final String PRODUCT_FETCH= "Product details successfully fetched";
 	public static final String PRODUCT_FETCH_ALL= "All Product details successfully fetched";
 	public static final String PRODUCT_EXIST = "Product already Exist!...";
+	public static final String PRODUCT_EXIST_INACTIVE = "Product already Exist and Inactive!...";
 	public static final String PRODUCT_NOTEXIST = "Product does't Exist!...";
 	public static final String PRODUCT_ERROR = "Product ERROR!...";
 	public static final String PRODUCT_NAME_NULL = "Product name cannot be null";

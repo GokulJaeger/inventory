@@ -168,6 +168,15 @@ public class Product {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", cost=" + cost + ", barcode=" + barcode + ", quantity="
+				+ quantity + ", brand=" + brand + ", description=" + description + ", location=" + location + ", image="
+				+ image + ", isActive=" + isActive + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+				+ ", utils=" + utils + "]";
+	}
 
 	@PrePersist
 	private void prePersist() {
