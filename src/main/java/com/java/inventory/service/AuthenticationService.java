@@ -78,6 +78,8 @@ public class AuthenticationService {
 				user.setUserId(input.getUserId());
 				user.setFullName(input.getFullName());
 				user.setEmail(input.getEmail());
+				user.setPlatform(input.getPlatform());
+				user.setDeviceId(input.getDeviceId());
 				user.setActive(true);
 				user.setRole(optionalRole.get());
 				user.setPassword(passwordEncoder.encode(input.getPassword()));
