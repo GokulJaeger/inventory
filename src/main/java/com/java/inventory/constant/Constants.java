@@ -74,6 +74,10 @@ public class Constants {
 	public static final String PRODUCT_ERROR = "Product ERROR!...";
 	public static final String PRODUCT_NAME_NULL = "Product name cannot be null";
 	
+	public static final String ROLE_FETCH= "Role details successfully fetched";
+	public static final String ROLE_FETCH_ALL= "All Role details successfully fetched";
+	public static final String ROLE_ERROR = "Role ERROR!...";
+	
 	public static final String API_AUTH = "/api/auth";
 	public static final String API_SIGNUP = "/signup";
 	public static final String API_LOGIN = "/login";
@@ -95,6 +99,9 @@ public class Constants {
 	public static final String API_PRODUCT_POST = "/postProduct";
 	public static final String API_PRODUCT_PUT = "/putProduct";
 	public static final String API_PRODUCT_DELETE = "/deleteProduct";
+	
+	public static final String API_ROLE = "/api/role";
+	public static final String API_ROLE_GET_ALL = "/getAllRoles";
 	
 
 }

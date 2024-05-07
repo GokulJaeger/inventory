@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "1d80f207-fa8d-4cac-ab6e-dc9b5348b4af",
+		"name": "Role",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32367208"
+	},
+	"item": [
+		{
+			"name": "Get All Roles",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnb2t1bGphQGdtYWlsLmNvbSIsImlhdCI6MTcxNDQ0NjIxMiwiZXhwIjoxNzIyMjIyMjEyfQ.ZI7s1vqa-fW-Pc4y4nEgq6iQCJDWmne5fc8IKG4c0mA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/role/getAllRoles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"role",
+						"getAllRoles"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
